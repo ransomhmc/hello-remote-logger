@@ -1,0 +1,24 @@
+<!doctype html>  
+<html lang="en">  
+    <head>
+
+    </head>
+    <body>
+        <h1 id='status'>Developer Role: Disconnected</h1>
+        <div id="future"></div>
+    </body>
+</html>
+
+<script src="/jquery/dist/jquery.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>  
+ var socket = io.connect(window.location.origin);
+ socket.on('connect', function(data) {
+    $('#status').html('Developer Role: Connected')
+ });
+ socket.on('broad', function(data) {
+         $('#future').append(data+ "<br/>");
+   });
+
+</script>  
