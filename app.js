@@ -1,9 +1,15 @@
 // app.js
 var express = require('express');  
 var app = express();  
-var server = require('http').createServer(app);  
-var io = require('socket.io')(server);
+var expressWs = require('express-ws')(app);
 
+app.use(function (req, res, next) {
+    console.log('middleware');
+    req.testing = 'testing';
+    return next();
+  });
+
+var aWss = expressWs.getWss('/');
 app.use(express.static(__dirname + '/node_modules'));  
 
 app.get('/', function(req, res,next) {  
@@ -18,20 +24,14 @@ app.get('/tester', function(req, res,next) {
     res.sendFile(__dirname + '/tester.html');
 });
 
-
-
-io.on('connection', function(client) {  
-    console.log('Client connected...');
-
-    client.on('join', function(data) {
-        console.log(data);
+app.ws('/ws', function(ws, req) {
+    console.log('Socket Connected');
+    ws.on('message', function(msg) {
+        console.log(msg);
+        aWss.clients.forEach(function (client) {
+          client.send(msg);
+        });
     });
+  });
 
-    client.on('messages', function(data) {
-           client.emit('broad', data);
-           client.broadcast.emit('broad',data);
-    });
-
-});
-
-server.listen(process.env.PORT || 8080);
+app.listen(8080);

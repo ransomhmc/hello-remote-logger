@@ -17,16 +17,18 @@
 </html>
 
 <script src="/jquery/dist/jquery.js"></script>
-<script src="/socket.io/socket.io.js"></script>
 
-<script>  
- var socket = io.connect(window.location.origin);
- socket.on('connect', function(data) {
-    socket.emit('join', 'Hello World from client');
+<script>
+
+ var websocket = new WebSocket('ws://'+window.location.host+'/ws');
+ websocket.onopen = () => {
     $('#status').html('Tester Role: Connected')
+ }
+ 
+ $('textarea').on('input',function(e) {
+  websocket.send(e.target.value);
  });
 
- $('textarea').on('input',function(e) {
-  socket.emit('messages',e.target.value);
- });
+ 
+ 
 </script>  

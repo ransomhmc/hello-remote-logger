@@ -17,17 +17,16 @@
 </html>
 
 <script src="/jquery/dist/jquery.js"></script>
-<script src="/socket.io/socket.io.js"></script>
 
-<script>  
- var socket = io.connect(window.location.origin);
- socket.on('connect', function(data) {
-    $('#status').html('Developer Role: Connected')
- });
- socket.on('broad', function(data) {
-        // $('#future').append(data+ "<br/>");
-	$('textarea').val(data);
+<script>
+
+var websocket = new WebSocket('ws://'+window.location.host+'/ws');
+ websocket.onopen = () => {
+    $('#status').html('Developer Role: Connected');
+ }
+
+ websocket.onmessage = (msg) => {
+	$('textarea').val(msg.data);
 	$('textarea').scrollTop($('textarea')[0].scrollHeight);
-	//$('div').text(data);
-   });
+ }
 </script>  

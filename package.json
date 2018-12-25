@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ransomhmc/hello-remote-logger#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "jquery": "^3.2.1",
-    "socket.io": "^2.0.4"
+    "express-ws": "^4.0.0",
+    "jquery": "^3.2.1"
   }
 }
