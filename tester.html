@@ -1,15 +1,18 @@
 <!doctype html>  
 <html lang="en">  
     <head>
-
+	<style>
+                textarea {
+                        display: inline-block;
+                        border: solid 1px #000;
+                        min-height: 200px;
+                        width: 80%;
+                }
+        </style>
     </head>
     <body>
         <h1 id='status'>Tester Role: Disconnected</h1>
-        <div id="future"></div>
-        <form id="form" id="chat_form">
-            <input id="chat_input" type="text">
-            <input type="submit" value="Send">
-        </form>
+	<textarea class="scrollabletextbox" name="note"></textarea>
     </body>
 </html>
 
@@ -22,13 +25,8 @@
     socket.emit('join', 'Hello World from client');
     $('#status').html('Tester Role: Connected')
  });
- socket.on('broad', function(data) {
-         $('#future').append(data+ "<br/>");
-   });
 
- $('form').submit(function(e){
-     e.preventDefault();
-     var message = $('#chat_input').val();
-     socket.emit('messages', message);
+ $('textarea').on('input',function(e) {
+  socket.emit('messages',e.target.value);
  });
 </script>  

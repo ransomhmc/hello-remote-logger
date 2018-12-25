@@ -1,11 +1,18 @@
 <!doctype html>  
 <html lang="en">  
     <head>
-
+	<style>
+		textarea {
+			display: inline-block;
+			border: solid 1px #000;
+			min-height: 200px;
+			width: 80%;
+		}
+	</style>
     </head>
     <body>
         <h1 id='status'>Developer Role: Disconnected</h1>
-        <div id="future"></div>
+	<textarea></textarea>
     </body>
 </html>
 
@@ -18,7 +25,9 @@
     $('#status').html('Developer Role: Connected')
  });
  socket.on('broad', function(data) {
-         $('#future').append(data+ "<br/>");
+        // $('#future').append(data+ "<br/>");
+	$('textarea').val(data);
+	$('textarea').scrollTop($('textarea')[0].scrollHeight);
+	//$('div').text(data);
    });
-
 </script>  
