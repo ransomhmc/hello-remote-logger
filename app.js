@@ -7,7 +7,7 @@ var io = require('socket.io')(server);
 app.use(express.static(__dirname + '/node_modules'));  
 
 app.get('/', function(req, res,next) {  
-    res.sendFile(__dirname + '/developer.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/developer', function(req, res,next) {  
